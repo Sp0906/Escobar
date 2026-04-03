@@ -1,0 +1,22 @@
+.ready-made-page { padding: 2rem 0; min-height: calc(100vh - 60px); }
+
+.rm-card { overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+.rm-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+
+.rm-img-wrapper {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: var(--secondary);
+}
+
+.rm-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+.rm-card:hover .rm-img-wrapper img { transform: scale(1.05); }
+
+.rm-info { padding: 1.2rem; }
+.rm-info h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; }
+.rm-desc { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4; }
+.rm-price { font-size: 1.15rem; font-weight: 700; color: var(--accent); margin-bottom: 0.75rem; }
+
+.size-select-row { display: flex; gap: 0.5rem; align-items: center; }
+.size-select-row .form-control { flex: 1; }
