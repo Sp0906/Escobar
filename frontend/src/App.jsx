@@ -1,6 +1,8 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchCart } from './store/cartSlice';
 
 import Navbar from './components/common/Navbar';
 import ProtectedRoute from './components/common/ProtectedRoute';
@@ -23,6 +25,12 @@ import AdminReadyMade from './pages/admin/ReadyMade';
 
 function App() {
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  // Hydrate cart on page refresh when user is already logged in
+  useEffect(() => {
+    if (user) dispatch(fetchCart());
+  }, [user, dispatch]);
 
   return (
     <Router>

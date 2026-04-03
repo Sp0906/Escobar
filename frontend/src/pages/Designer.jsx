@@ -250,13 +250,16 @@ export default function Designer() {
       if (savedDesignId) {
         await updateDesign(savedDesignId, payload);
         toast.success('Design updated!');
+        return savedDesignId;
       } else {
         const { data } = await saveDesign(payload);
         setSavedDesignId(data.design._id);
         toast.success('Design saved!');
+        return data.design._id;
       }
     } catch {
       toast.error('Failed to save design');
+      return null;
     } finally {
       setSaving(false);
     }
@@ -264,16 +267,17 @@ export default function Designer() {
 
   const handleAddToCart = async () => {
     if (!user) { toast.error('Please login first'); navigate('/login'); return; }
-    if (!savedDesignId) {
+    let currentDesignId = savedDesignId;
+    if (!currentDesignId) {
       toast('Saving design first...');
-      await handleSave();
+      currentDesignId = await handleSave();
     }
-    if (!savedDesignId) return;
+    if (!currentDesignId) return;
     setAddingToCart(true);
     try {
       await dispatch(addItemToCart({
         itemType: 'custom',
-        designId: savedDesignId,
+        designId: currentDesignId,
         jerseyId,
         quantity: 1,
         size,
